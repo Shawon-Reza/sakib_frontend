@@ -73,8 +73,8 @@ const Navbar1 = ({
       url: "invoices",
     },
     {
-      title: "Pricing",
-      url: "#",
+      title: "users",
+      url: "/users",
     },
     {
       title: "Blog",
