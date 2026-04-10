@@ -127,8 +127,8 @@ export function InvoiceBuilder() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 px-3 py-4 sm:px-5 sm:py-6">
-      <section className="mx-auto w-full max-w-6xl rounded-2xl border bg-white shadow-sm">
+    <main className=" py-4 sm:px-5 sm:py-6 container mx-auto">
+      <section className="mx-auto w-full  rounded-2xl border bg-white shadow-sm">
         <InvoiceHeader />
 
         <div className="space-y-5 px-4 py-5 sm:px-6">
