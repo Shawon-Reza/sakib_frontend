@@ -73,7 +73,7 @@ const Navbar1 = ({
       url: "invoices",
     },
     {
-      title: "users",
+      title: "Users",
       url: "/users",
     },
     {

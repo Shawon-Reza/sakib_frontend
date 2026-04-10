@@ -17,6 +17,7 @@ export function InvoiceBuilder() {
   const [invoiceDate, setInvoiceDate] = useState(dateIso);
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
   const [referenceInvoiceNos, setReferenceInvoiceNos] = useState<string[]>([
     "",
   ]);
@@ -107,6 +108,7 @@ export function InvoiceBuilder() {
       customer: {
         name: customerName,
         address: customerAddress,
+        phone: customerPhone,
       },
       referenceInvoiceNos: referenceInvoiceNos
         .map((invoiceNo) => invoiceNo.trim())
@@ -137,10 +139,12 @@ export function InvoiceBuilder() {
             invoiceDate={invoiceDate}
             customerName={customerName}
             customerAddress={customerAddress}
+            customerPhone={customerPhone}
             onBillNoChange={setBillNo}
             onInvoiceDateChange={setInvoiceDate}
             onCustomerNameChange={setCustomerName}
             onCustomerAddressChange={setCustomerAddress}
+            onCustomerPhoneChange={setCustomerPhone}
           />
 
           <InvoiceItemsSection
