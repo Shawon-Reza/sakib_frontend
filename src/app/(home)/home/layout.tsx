@@ -17,28 +17,11 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <nav className="scale-110 border-b">
-                <Navbar1 />
-            </nav>
-            <nav className="scale-100 ">
-                <Hero3 />
-            </nav>
-
+          
             {/* ============= Main Content ============== */}
             {children}
 
-            {/* ============= Contact Us Page ============== */}
-            <section>
-                <BookADemo2 />
-            </section>
-            {/* ============= Map ============== */}
-            <footer className="mb-20 max-h-[400px] overflow-hidden rounded-lg">
-                <LocationMap />
-            </footer>
-            {/* ============= Footer ============== */}
-            <footer className="scale-110 ">
-                <Footer7 />
-            </footer>
+            
         </>
     );
 }
