@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,32 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased `}
     >
+      <head>
+        <Script id="google-translate-init" strategy="afterInteractive">
+          {`
+            window.googleTranslateElementInit = function () {
+              var mountNode = document.getElementById("google_translate_element");
+              if (!mountNode || !window.google || !window.google.translate || !window.google.translate.TranslateElement) {
+                return;
+              }
+
+              new window.google.translate.TranslateElement(
+                {
+                  pageLanguage: "en",
+                  includedLanguages: "en,fr,es,pt,de,bn,zh-CN,zh-TW,ja,ko,ru,it,ar",
+                  layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                },
+                "google_translate_element"
+              );
+            };
+          `}
+        </Script>
+        <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="afterInteractive"
+        />
+      </head>
+
       <body className="min-h-full flex flex-col " cz-shortcut-listen="true">
         {children}
       </body>

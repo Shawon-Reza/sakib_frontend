@@ -25,6 +25,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import LanguageSwitcher from "./reuseable-components/language-switcher";
 
 
 
@@ -114,6 +115,7 @@ const Navbar1 = ({
           </div>
           {/* Auth Buttons */}
           <div className="flex gap-2">
+            <LanguageSwitcher />
             <Button asChild variant="outline" size="sm">
               <a href={auth.login.url}>{auth.login.title}</a>
             </Button>
@@ -162,6 +164,10 @@ const Navbar1 = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-center">
+                      <LanguageSwitcher />
+                    </div>
+
                     <Button asChild variant="outline">
                       <a href={auth.login.url}>{auth.login.title}</a>
                     </Button>
