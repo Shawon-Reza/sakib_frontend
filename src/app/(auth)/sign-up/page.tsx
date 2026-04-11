@@ -1,19 +1,17 @@
-import { Signup1 } from '@/components/signup1'
 
+import { Signup2 } from "@/components/signup2";
 
 const page = () => {
   return (
-    <div>
-      <Signup1
-      className=''
+    <Signup2
       logo={{
         url: "/",
         src: "/logo.png",
         alt: "My Logo",
-        title: "My Website"
-      }} />
-
-    </div>
+        title: "My Website",
+      }}
+      loginUrl="/sign-in"
+    />
   )
 }
 

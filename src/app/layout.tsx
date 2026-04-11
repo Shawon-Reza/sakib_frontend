@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { ReactQueryProvider } from "@/components/providers/react-query-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +58,8 @@ export default function RootLayout({
       </head>
 
       <body className="min-h-full flex flex-col " cz-shortcut-listen="true">
-        {children}
+        <Toaster />
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

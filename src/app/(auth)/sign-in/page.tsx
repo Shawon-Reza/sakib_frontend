@@ -1,9 +1,15 @@
-import React from 'react'
+import { Login1 } from "@/components/login1";
 
-const page = () => {
+export default function Login() {
   return (
-    <div>Login</div>
-  )
+    <Login1
+      logo={{
+        url: "/",
+        src: "/logo.png",
+        alt: "My Logo",
+        title: "My Website",
+      }}
+      signupUrl="/sign-up"
+    />
+  );
 }
-
-export default page
