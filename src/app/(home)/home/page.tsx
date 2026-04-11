@@ -6,6 +6,8 @@ import { Hero3 } from "@/components/hero3";
 
 
 const HomePage = () => {
+
+  
   return (
     <div className="px-2 pt-24">
 

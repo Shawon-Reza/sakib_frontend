@@ -5,9 +5,9 @@ import { baseUrl } from "./config";
 // Main API instance
 const axiosApi = axios.create({
     baseURL: baseUrl,
+    withCredentials: true,
     headers: {
         "Content-Type": "application/json",
-        "credentials": "include",
 
     },
 });
@@ -15,6 +15,7 @@ const axiosApi = axios.create({
 // Refresh-only instance (no interceptors)
 const refreshAxios = axios.create({
     baseURL: baseUrl,
+    withCredentials: true,
     headers: {
         "Content-Type": "application/json",
     },

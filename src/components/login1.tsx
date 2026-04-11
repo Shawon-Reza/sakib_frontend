@@ -74,7 +74,8 @@ const Login1 = ({
             toast.success("Login successful!", {
                 position: "top-center",
             });
-            router.push("/home");
+            router.replace("/home");
+            // router.refresh();
         },
         onError: (error) => {
             console.log("Login error:", error);
