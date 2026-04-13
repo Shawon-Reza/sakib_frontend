@@ -4,8 +4,11 @@ import "./globals.css";
 import Script from "next/script";
 import { Toaster } from "sonner";
 import { ReactQueryProvider } from "@/components/providers/ReactQueryProvider";
-import { AuthUserProvider } from "@/components/providers/AuthUserProvider";
-import { getCurrentUser } from "@/app/actions/isMe.action";
+import isMe from "./actions/isMe.action";
+import AuthUserProvider from "@/components/providers/AuthUserProvider";
+
+
+
 
 
 const geistSans = Geist({
@@ -28,9 +31,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUser = await getCurrentUser();
-  console.log("Current user in RootLayout:", currentUser);
-
+  const currentUser = await isMe.getCurrentUser();
   return (
     <html
       lang="en"

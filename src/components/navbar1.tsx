@@ -1,6 +1,6 @@
 "use client";
 
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import {
   Accordion,
@@ -26,6 +26,11 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import LanguageSwitcher from "./reuseable-components/language-switcher";
+import { useAuthUser } from "./providers/AuthUserProvider";
+import { useMutation } from "@tanstack/react-query";
+import axiosApi from "@/config/axiosInstance";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 
@@ -56,6 +61,10 @@ interface Navbar1Props {
       title: string;
       url: string;
     };
+    signout: {
+      title: "Sign out",
+      url: "/sign-out";
+    }
   };
 }
 
@@ -85,9 +94,39 @@ const Navbar1 = ({
   auth = {
     login: { title: "Login", url: "/sign-in" },
     signup: { title: "Sign up", url: "/sign-up" },
+    signout: { title: "Sign out", url: "/sign-out" },
   },
   className,
 }: Navbar1Props) => {
+  const router = useRouter();
+
+  const { user, setUser } = useAuthUser();
+
+  console.log(user)
+  //  ======================== Sign Out Mutation ======================== \\
+  const signOut = useMutation({
+    mutationFn: async () => {
+      const res = await axiosApi.post("/api/auth/sign-out");
+      return res.data;
+    },
+    onSuccess: () => {
+      setUser(null);
+      toast.success("Sign out successful!", {
+        position: "top-center",
+      });
+
+    },
+    onError: () => {
+      toast.error("Sign out failed. Please try again.", {
+        position: "top-center",
+      });
+    },
+  });
+
+  const handleSignOut = () => {
+    signOut.mutate();
+  };
+
   return (
     <section className={cn("py-4 px-10", className)}>
       <div className="container mx-auto">
@@ -116,12 +155,30 @@ const Navbar1 = ({
           {/* Auth Buttons */}
           <div className="flex gap-2">
             <LanguageSwitcher />
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
+            {
+              user ?
+                (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSignOut}
+                    disabled={signOut.isPending}
+                  >
+                    {signOut.isPending ? "Signing out..." : auth.signout.title}
+                  </Button>
+                )
+                :
+                (
+                  <Button asChild variant="outline" size="sm">
+                    <a href={auth.login.url}>{auth.login.title}</a>
+                  </Button>
+                )
+            }
+
+
+            {/* <Button asChild size="sm">
               <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
+            </Button> */}
           </div>
         </nav>
 
@@ -167,13 +224,22 @@ const Navbar1 = ({
                     <div className="flex items-center justify-center">
                       <LanguageSwitcher />
                     </div>
-
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
-                    <Button asChild>
+                    {user ? (
+                      <Button
+                        variant="outline"
+                        onClick={handleSignOut}
+                        disabled={signOut.isPending}
+                      >
+                        {signOut.isPending ? "Signing out..." : auth.signout.title}
+                      </Button>
+                    ) : (
+                      <Button asChild variant="outline">
+                        <a href={auth.login.url}>{auth.login.title}</a>
+                      </Button>
+                    )}
+                    {/* <Button asChild>
                       <a href={auth.signup.url}>{auth.signup.title}</a>
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </SheetContent>
