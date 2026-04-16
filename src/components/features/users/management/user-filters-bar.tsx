@@ -48,13 +48,15 @@ export function UserFiltersBar() {
 
         <Select>
           <SelectTrigger className="h-10 w-full rounded-xl border-slate-300/80 bg-white">
-            <SelectValue placeholder="Role" />
+            <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="owner">Owner</SelectItem>
-            <SelectItem value="manager">Manager</SelectItem>
-            <SelectItem value="staff">Staff</SelectItem>
+            <SelectItem value="name:asc">Name: A to Z</SelectItem>
+            <SelectItem value="name:desc">Name: Z to A</SelectItem>
+            <SelectItem value="email:asc">Email: A to Z</SelectItem>
+            <SelectItem value="email:desc">Email: Z to A</SelectItem>
+            <SelectItem value="createdAt:asc">Created At: Oldest First</SelectItem>
+            <SelectItem value="createdAt:desc">Created At: Newest First</SelectItem>
           </SelectContent>
         </Select>
       </div>
