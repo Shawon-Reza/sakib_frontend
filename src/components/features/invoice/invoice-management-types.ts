@@ -9,5 +9,4 @@ export type InvoiceListItem = {
   grossTotal: number;
   dueAmount: number;
   status: InvoicePaymentStatus;
-  referenceInvoiceNos: string[];
 };

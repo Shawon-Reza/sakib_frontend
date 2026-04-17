@@ -38,21 +38,14 @@ export function InvoiceCustomerSection({
           onChange={(e) => onCustomerNameChange(e.target.value)}
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="invoice-date">Date</Label>
+
+      <div className="space-y-1.5 sm:col-span-2">
+        <Label htmlFor="customer-phone">Phone Number</Label>
         <Input
-          id="invoice-date"
-          type="date"
-          value={invoiceDate}
-          onChange={(e) => onInvoiceDateChange(e.target.value)}
-        />
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="bill-no">Bill No</Label>
-        <Input
-          id="bill-no"
-          value={billNo}
-          onChange={(e) => onBillNoChange(e.target.value)}
+          id="customer-phone"
+          value={customerPhone}
+          placeholder="Enter phone number"
+          onChange={(e) => onCustomerPhoneChange(e.target.value)}
         />
       </div>
 
@@ -68,15 +61,7 @@ export function InvoiceCustomerSection({
             />
           </div>
 
-          <div className="space-y-1.5 md:w-72">
-            <Label htmlFor="customer-phone">Phone Number</Label>
-            <Input
-              id="customer-phone"
-              value={customerPhone}
-              placeholder="Enter phone number"
-              onChange={(e) => onCustomerPhoneChange(e.target.value)}
-            />
-          </div>
+
         </div>
       </div>
     </section>

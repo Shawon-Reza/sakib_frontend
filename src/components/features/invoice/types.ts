@@ -7,9 +7,7 @@ export type InvoiceItem = {
 };
 
 export type InvoiceSummary = {
-  subtotal: number;
-  previousDueAmount: number;
-  grossTotal: number;
-  received: number;
-  netDue: number;
+  totalAmount: number;
+  receiveAmount: number;
+  dueAmount: number;
 };

@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 import { InvoiceCustomerSection } from "./invoice-customer-section";
-import { InvoiceDueDetails } from "./invoice-due-details";
 import { InvoiceHeader } from "./invoice-header";
 import { InvoiceItemsSection } from "./invoice-items-section";
 import { InvoiceSummaryCard } from "./invoice-summary";
@@ -18,14 +17,10 @@ export function InvoiceBuilder() {
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
-  const [referenceInvoiceNos, setReferenceInvoiceNos] = useState<string[]>([
-    "",
-  ]);
-  const [previousDue, setPreviousDue] = useState("0");
-  const [receivedAmount, setReceivedAmount] = useState("0");
   const [items, setItems] = useState<InvoiceItem[]>([createItem()]);
+  const [receiveAmount, setReceiveAmount] = useState("0");
 
-  const subtotal = useMemo(
+  const totalAmount = useMemo(
     () =>
       items.reduce((sum, item) => {
         return sum + toNumber(item.quantity) * toNumber(item.rate);
@@ -33,10 +28,8 @@ export function InvoiceBuilder() {
     [items]
   );
 
-  const previousDueAmount = toNumber(previousDue);
-  const received = toNumber(receivedAmount);
-  const grossTotal = subtotal + previousDueAmount;
-  const netDue = Math.max(grossTotal - received, 0);
+  const receivedAmount = toNumber(receiveAmount);
+  const dueAmount = Math.max(totalAmount - receivedAmount, 0);
 
   const updateItem = (
     id: string,
@@ -61,32 +54,6 @@ export function InvoiceBuilder() {
     });
   };
 
-  const updateReferenceInvoice = (index: number, value: string) => {
-    setReferenceInvoiceNos((prev) =>
-      prev.map((invoiceNo, idx) => (idx === index ? value : invoiceNo))
-    );
-  };
-
-  const addReferenceInvoice = () => {
-    setReferenceInvoiceNos((prev) => [...prev, ""]);
-  };
-
-  const removeReferenceInvoice = (index: number) => {
-    setReferenceInvoiceNos((prev) => {
-      if (prev.length === 1) {
-        return prev;
-      }
-
-      return prev.filter((_, idx) => idx !== index);
-    });
-  };
-
-  const referenceInvoicesText = referenceInvoiceNos
-    .map((invoiceNo) => invoiceNo.trim())
-    .filter(Boolean)
-    .join(", ");
-
-    
   const handleCreateInvoice = () => {
     const formattedItems = items.map((item, index) => {
       const quantity = toNumber(item.quantity);
@@ -110,16 +77,11 @@ export function InvoiceBuilder() {
         address: customerAddress,
         phone: customerPhone,
       },
-      referenceInvoiceNos: referenceInvoiceNos
-        .map((invoiceNo) => invoiceNo.trim())
-        .filter(Boolean),
-      previousDue: previousDueAmount,
-      receivedAmount: received,
       items: formattedItems,
       summary: {
-        subtotal,
-        grossTotal,
-        netDue,
+        totalAmount,
+        receiveAmount: receivedAmount,
+        dueAmount,
       },
       createdAt: new Date().toISOString(),
     };
@@ -129,7 +91,7 @@ export function InvoiceBuilder() {
   };
 
   return (
-    <main className=" py-4 sm:px-5 sm:py-6 container mx-auto">
+    <main className=" py-4 sm:px-5 sm:py-6 container mx-auto max-w-5xl">
       <section className="mx-auto w-full  rounded-2xl border bg-white shadow-sm">
         <InvoiceHeader />
 
@@ -154,31 +116,17 @@ export function InvoiceBuilder() {
             onUpdateItem={updateItem}
           />
 
-          <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <InvoiceDueDetails
-              referenceInvoiceNos={referenceInvoiceNos}
-              previousDue={previousDue}
-              receivedAmount={receivedAmount}
-              onAddReferenceInvoice={addReferenceInvoice}
-              onRemoveReferenceInvoice={removeReferenceInvoice}
-              onReferenceInvoiceChange={updateReferenceInvoice}
-              onPreviousDueChange={setPreviousDue}
-              onReceivedAmountChange={setReceivedAmount}
-            />
-
-            <InvoiceSummaryCard
-              billNo={billNo}
-              invoiceDate={invoiceDate}
-              referenceInvoicesText={referenceInvoicesText}
-              summary={{
-                subtotal,
-                previousDueAmount,
-                grossTotal,
-                received,
-                netDue,
-              }}
-            />
-          </section>
+          <InvoiceSummaryCard
+            billNo={billNo}
+            invoiceDate={invoiceDate}
+            summary={{
+              totalAmount,
+              receiveAmount: receivedAmount,
+              dueAmount,
+            }}
+            receiveAmount={receiveAmount}
+            onReceiveAmountChange={setReceiveAmount}
+          />
 
           <div className="flex justify-end">
             <Button type="button" size="lg" onClick={handleCreateInvoice}>

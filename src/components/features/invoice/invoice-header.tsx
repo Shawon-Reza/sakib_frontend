@@ -8,8 +8,7 @@ export function InvoiceHeader() {
         Create Invoice
       </h1>
       <p className="mt-1 text-sm opacity-70">
-        Add products, include previous due with reference invoice, and total
-        will be generated automatically.
+        Add products and the total will be generated automatically.
       </p>
     </header>
   );

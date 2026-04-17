@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, FileText, ReceiptText, UserRound } from "lucide-react";
+import { CalendarDays, ReceiptText, UserRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -60,10 +60,8 @@ export function InvoiceListCard({ invoice }: InvoiceListCardProps) {
             <span>{invoice.itemCount} items</span>
           </div>
           <div className="flex items-center gap-2">
-            <FileText className="size-4 text-slate-500" />
-            <span className="truncate">
-              Ref: {invoice.referenceInvoiceNos.length > 0 ? invoice.referenceInvoiceNos.join(", ") : "N/A"}
-            </span>
+            <div className="size-4" />
+            <span className="text-slate-500">No reference tracking</span>
           </div>
         </div>
 

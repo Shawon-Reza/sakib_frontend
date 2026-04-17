@@ -1,56 +1,51 @@
 import { InvoiceSummary } from "./types";
 import { currency } from "./utils";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type InvoiceSummaryCardProps = {
   billNo: string;
   invoiceDate: string;
-  referenceInvoicesText: string;
   summary: InvoiceSummary;
+  receiveAmount: string;
+  onReceiveAmountChange: (value: string) => void;
 };
 
 export function InvoiceSummaryCard({
   billNo,
   invoiceDate,
-  referenceInvoicesText,
   summary,
+  receiveAmount,
+  onReceiveAmountChange,
 }: InvoiceSummaryCardProps) {
   return (
     <div className="rounded-xl border p-3 sm:p-4">
       <h3 className="mb-3 text-sm font-semibold text-slate-900">Bill Summary</h3>
       <dl className="space-y-2 text-sm">
-        <div className="flex items-center justify-between">
-          <dt className="text-slate-600">Products Total</dt>
-          <dd className="font-medium">{currency(summary.subtotal)}</dd>
-        </div>
-        <div className="flex items-center justify-between">
-          <dt className="text-slate-600">Previous Due</dt>
-          <dd className="font-medium">{currency(summary.previousDueAmount)}</dd>
-        </div>
-        <div className="flex items-center justify-between border-b pb-2">
-          <dt className="text-slate-600">Gross Total</dt>
-          <dd className="font-semibold">{currency(summary.grossTotal)}</dd>
-        </div>
-        <div className="flex items-center justify-between">
-          <dt className="text-slate-600">Received Amount</dt>
-          <dd className="font-medium">{currency(summary.received)}</dd>
-        </div>
         <div className="flex items-center justify-between text-base">
-          <dt className="font-semibold text-slate-900">Net Due</dt>
-          <dd className="font-bold text-slate-900">{currency(summary.netDue)}</dd>
+          <dt className="font-semibold text-slate-900">Total</dt>
+          <dd className="font-bold text-slate-900">{currency(summary.totalAmount)}</dd>
         </div>
       </dl>
 
-      <div className="mt-4 rounded-lg bg-slate-100 p-3 text-xs text-slate-700">
-        <p>
-          Bill No: <span className="font-semibold text-slate-900">{billNo || "-"}</span>
-        </p>
-        <p className="mt-1">
-          Date: <span className="font-semibold text-slate-900">{invoiceDate || "-"}</span>
-        </p>
-        <p className="mt-1">
-          Ref Invoice: <span className="font-semibold text-slate-900">{referenceInvoicesText || "N/A"}</span>
-        </p>
+      <div className="mt-4 space-y-3 rounded-lg border bg-slate-50 p-3 sm:flex sm:items-center sm:justify-between sm:gap-4">
+        <div className="space-y-1.5 w-full">
+          <Label htmlFor="receive-amount">Receive Amount</Label>
+          <Input
+            id="receive-amount"
+            type="number"
+            min="0"
+            value={receiveAmount}
+            onChange={(e) => onReceiveAmountChange(e.target.value)}
+          />
+        </div>
+        <div className="space-y-1.5 w-full">
+          <Label htmlFor="due-amount">Due</Label>
+          <Input id="due-amount" value={currency(summary.dueAmount)} readOnly />
+        </div>
       </div>
+
+      
     </div>
   );
 }

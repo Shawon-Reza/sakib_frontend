@@ -1,6 +1,5 @@
 import { InvoiceBuilder } from "@/components/features/invoice/invoice-builder";
 import { Navbar1 } from "@/components/navbar1";
-import { div } from "framer-motion/client";
 
 export default function CreateInvoicePage() {
     return (
