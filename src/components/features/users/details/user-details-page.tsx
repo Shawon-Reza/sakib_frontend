@@ -1,10 +1,14 @@
 "use client";
 
-import { UserListItem } from "../user-management-types";
+import { useState } from "react";
+
 import { InvoiceListItem } from "@/components/features/invoice/invoice-management-types";
+
+import { EditCustomerModal } from "../management/edit-customer-modal";
+import { UserListItem } from "../user-management-types";
+import { UserInvoicesSection } from "./user-invoices-section";
 import { UserProfileHeader } from "./user-profile-header";
 import { UserStats } from "./user-stats";
-import { UserInvoicesSection } from "./user-invoices-section";
 
 type UserDetailsPageProps = {
   user: UserListItem;
@@ -12,27 +16,34 @@ type UserDetailsPageProps = {
 };
 
 export function UserDetailsPage({ user, invoices }: UserDetailsPageProps) {
-  const handleEdit = () => {
-    console.log("Edit user:", user.id);
-  };
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleDelete = () => {
     console.log("Delete user:", user.id);
   };
 
   return (
-    <main className="space-y-6 py-4 sm:px-5 sm:py-6 px-4 container mx-auto max-w-7xl">
-      {/* User Profile Header */}
-      <UserProfileHeader user={user} onEdit={handleEdit} onDelete={handleDelete} />
+    <>
+      <main className="container mx-auto max-w-7xl space-y-6 px-4 py-4 sm:px-5 sm:py-6">
+        <UserProfileHeader
+          user={user}
+          onEdit={() => setIsEditOpen(true)}
+          onDelete={handleDelete}
+        />
 
-      {/* User Stats */}
-      <UserStats user={user} />
+        <UserStats user={user} />
 
-      {/* Invoice History Section */}
-      <div>
-        <h2 className="mb-4 text-2xl font-bold text-slate-900">See all Invoices history</h2>
-        <UserInvoicesSection invoices={invoices} userId={user.id} />
-      </div>
-    </main>
+        <div>
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">See all Invoices history</h2>
+          <UserInvoicesSection invoices={invoices} userId={user.id} />
+        </div>
+      </main>
+
+      <EditCustomerModal
+        open={isEditOpen}
+        user={user}
+        onClose={() => setIsEditOpen(false)}
+      />
+    </>
   );
 }

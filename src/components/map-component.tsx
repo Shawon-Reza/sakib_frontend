@@ -61,12 +61,12 @@ export default function LocationMap() {
   }
 
   const { MapContainer, TileLayer, Marker, Popup } = leafletComponents;
-  const position: [number, number] = [23.1641, 89.2065];
-
+  const position: [number, number] = [23.14820041251338, 89.20185725536862];
+// 23.14820041251338, 89.20185725536862
   return (
     <MapContainer
       center={position}
-      zoom={17}
+      zoom={15}
       scrollWheelZoom
       style={{ height: '250px', width: '100%' }}
     >
@@ -78,8 +78,8 @@ export default function LocationMap() {
       <Marker position={position}>
         <Popup>
           <div style={{ minWidth: '200px' }}>
-            <h3>Your Location Name</h3>
-            <p>Your address here</p>
+            <h3>Modina Enterprise And Leaker Center</h3>
+            <p>46X2+6PX, Raja Barda Kanto Rd, dalmil</p>
           </div>
         </Popup>
       </Marker>

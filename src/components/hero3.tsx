@@ -1,23 +1,16 @@
+"use client";
+
 import { ArrowDownRight, Star } from "lucide-react";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { ImageCarousel } from "@/components/reuseable-components/image-carousel";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface Hero3Props {
   heading?: string;
   description?: string;
-  buttons?: {
-    primary?: {
-      text: string;
-      url: string;
-      className?: string;
-    };
-    secondary?: {
-      text: string;
-      url: string;
-    };
-  };
+
   reviews?: {
     count: number;
     avatars: {
@@ -30,18 +23,9 @@ interface Hero3Props {
 }
 
 const Hero3 = ({
-  heading = "Blocks built with Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  buttons = {
-    primary: {
-      text: "Sign Up",
-      url: "https://www.shadcnblocks.com",
-    },
-    secondary: {
-      text: "Get Started",
-      url: "https://www.shadcnblocks.com",
-    },
-  },
+  heading = "Modina Enterprise And Leaker Center",
+  description = "Your trusted hardware and polish shop for premium tools, paints, polishing materials, construction essentials, and reliable service that helps every home and business finish strong.",
+
   reviews = {
     count: 200,
     rating: 5.0,
@@ -70,6 +54,8 @@ const Hero3 = ({
   },
   className,
 }: Hero3Props) => {
+  const images = ["/images/img1.jpg", "/images/img2.jpg", "/images/img3.jpg"];
+
   return (
     <section className={cn("py-10", className)}>
       <div className="container mx-auto grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
@@ -78,7 +64,7 @@ const Hero3 = ({
           <h1 className="my-6 text-4xl font-hero font-bold text-pretty lg:text-6xl xl:text-7xl">
             {heading}
           </h1>
-          
+
           <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">
             {description}
           </p>
@@ -108,28 +94,22 @@ const Hero3 = ({
             </div>
           </div>
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-            {buttons.primary && (
-              <Button asChild className="w-full sm:w-auto">
-                <a href={buttons.primary.url}>{buttons.primary.text}</a>
-              </Button>
-            )}
-            {buttons.secondary && (
-              <Button asChild variant="outline">
-                <a href={buttons.secondary.url}>
-                  {buttons.secondary.text}
-                  <ArrowDownRight className="size-4" />
-                </a>
-              </Button>
-            )}
+
+            <Button asChild className="w-full sm:w-auto">
+              <a href='/sign-up'>Sign Up</a>
+            </Button>
+
+
+            <Button asChild variant="outline">
+              <a href="/get-started">
+                Get Started
+                <ArrowDownRight className="size-4" />
+              </a>
+            </Button>
+
           </div>
         </div>
-        <div className="flex">
-          <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
-            alt="placeholder hero"
-            className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
-          />
-        </div>
+        <ImageCarousel images={images} intervalMs={4000} altPrefix="Hero showcase image" />
       </div>
     </section>
   );

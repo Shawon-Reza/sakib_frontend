@@ -1,13 +1,11 @@
-import Link from "next/link";
-import { useState } from "react";
 import { CalendarDays, Mail, Phone, Shield } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 
 import { UserAccountStatus, UserListItem } from "../user-management-types";
 import { AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
-import { EditCustomerModal } from "./edit-customer-modal";
 
 type UserListCardProps = {
     user: UserListItem;
@@ -48,77 +46,86 @@ const handleDeleteUser = (userId: string) => {
 };
 
 export function UserListCard({ user }: UserListCardProps) {
-    const [isEditOpen, setIsEditOpen] = useState(false);
+    const router = useRouter();
+
+    const handleViewUser = () => {
+        router.push(`/users/${user.id}`);
+    };
+
+    const stopCardNavigation = (event: React.MouseEvent) => {
+        event.stopPropagation();
+    };
 
     return (
-        <>
-            <article className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${statusAccent[user.status]}`} />
+        <article
+            className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+            onClick={handleViewUser}
+            role="link"
+            tabIndex={0}
+            onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleViewUser();
+                }
+            }}
+        >
+            <div className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${statusAccent[user.status]}`} />
 
-                <div className="border-b border-slate-200 bg-slate-50/80 p-4">
-                    <div className="flex items-start justify-between gap-3">
-                        <div>
-                            <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
-                                User Code
-                            </p>
-                            <h2 className="mt-1 text-lg font-semibold text-slate-900">
-                                {user.userCode}
-                            </h2>
-                        </div>
-                        <Button className="cursor-pointer" variant="destructive"
-                            onClick={() => handleDeleteUser(user.id)}
-                        >
-                            <AiOutlineDelete />
-                        </Button>
+            <div className="border-b border-slate-200 bg-slate-50/80 p-4">
+                <div className="flex items-start justify-between gap-3">
+                    <div>
+                        <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
+                            User Code
+                        </p>
+                        <h2 className="mt-1 text-lg font-semibold text-slate-900">
+                            {user.userCode}
+                        </h2>
+                    </div>
+                    <Button
+                        className="cursor-pointer"
+                        variant="destructive"
+                        onClick={(event) => {
+                            stopCardNavigation(event);
+                            handleDeleteUser(user.id);
+                        }}
+                    >
+                        <AiOutlineDelete />
+                    </Button>
+                </div>
+            </div>
 
+            <div className="space-y-4 p-4">
+                <div className="space-y-2 text-sm text-slate-700">
+                    <p className="truncate text-base font-semibold text-slate-900">{user.fullName}</p>
+                    <div className="flex items-center gap-2">
+                        <Mail className="size-4 text-slate-500" />
+                        <span className="truncate">{user.email}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Phone className="size-4 text-slate-500" />
+                        <span>{user.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Shield className="size-4 text-slate-500" />
+                        <span>{user.role}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <CalendarDays className="size-4 text-slate-500" />
+                        <span>{user.joinedDate}</span>
                     </div>
                 </div>
 
-                <div className="space-y-4 p-4">
-                    <div className="space-y-2 text-sm text-slate-700">
-                        <p className="truncate text-base font-semibold text-slate-900">{user.fullName}</p>
-                        <div className="flex items-center gap-2">
-                            <Mail className="size-4 text-slate-500" />
-                            <span className="truncate">{user.email}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Phone className="size-4 text-slate-500" />
-                            <span>{user.phone}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Shield className="size-4 text-slate-500" />
-                            <span>{user.role}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <CalendarDays className="size-4 text-slate-500" />
-                            <span>{user.joinedDate}</span>
-                        </div>
+                <div className="grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                    <div>
+                        <p className="text-xs text-slate-500">Total Invoices</p>
+                        <p className="mt-1 text-sm font-semibold text-slate-900">{user.totalInvoices}</p>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                        <div>
-                            <p className="text-xs text-slate-500">Total Invoices</p>
-                            <p className="mt-1 text-sm font-semibold text-slate-900">{user.totalInvoices}</p>
-                        </div>
-                        <div>
-                            <p className="text-xs text-slate-500">Total Spent</p>
-                            <p className="mt-1 text-sm font-semibold text-slate-900">{user.totalSpent.toLocaleString()}</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-end gap-2 pt-1">
-                        <Button asChild variant="outline" size="sm">
-                            <Link href={`/users/${user.id}`}>View</Link>
-                        </Button>
-                        <Button type="button" variant="default" size="sm" onClick={() => setIsEditOpen(true)}>
-                            Edit
-                        </Button>
-
+                    <div>
+                        <p className="text-xs text-slate-500">Total Spent</p>
+                        <p className="mt-1 text-sm font-semibold text-slate-900">{user.totalSpent.toLocaleString()}</p>
                     </div>
                 </div>
-            </article>
-
-            <EditCustomerModal open={isEditOpen} user={user} onClose={() => setIsEditOpen(false)} />
-        </>
+            </div>
+        </article>
     );
 }

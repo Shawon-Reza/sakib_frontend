@@ -1,10 +1,14 @@
+"use client";
+
 import { CalendarDays, Clock3, FileText, UserRound } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { InvoiceDetailsData } from "./invoice-details-types";
 import { currency } from "../utils";
 
 type InvoiceDetailsHeaderProps = {
   invoice: InvoiceDetailsData;
+  onDelete?: () => void;
 };
 
 const statusStyles: Record<InvoiceDetailsData["status"], string> = {
@@ -13,7 +17,7 @@ const statusStyles: Record<InvoiceDetailsData["status"], string> = {
   Due: "bg-rose-50 text-rose-700 ring-rose-200",
 };
 
-export function InvoiceDetailsHeader({ invoice }: InvoiceDetailsHeaderProps) {
+export function InvoiceDetailsHeader({ invoice, onDelete }: InvoiceDetailsHeaderProps) {
   return (
     <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
       <div className="bg-linear-to-r from-slate-950 via-slate-900 to-slate-800 px-4 py-5 text-white sm:px-6 sm:py-6 lg:px-8">
@@ -33,8 +37,15 @@ export function InvoiceDetailsHeader({ invoice }: InvoiceDetailsHeaderProps) {
             </div>
           </div>
 
-          <div className={`inline-flex w-fit items-center rounded-full px-3 py-1.5 text-xs font-semibold ring-1 ${statusStyles[invoice.status]}`}>
-            {invoice.status}
+          <div className="flex flex-col items-end gap-4 lg:gap-3">
+            <div className={`inline-flex w-fit items-center rounded-full px-3 py-1.5 text-xs font-semibold ring-1 ${statusStyles[invoice.status]}`}>
+              {invoice.status}
+            </div>
+            {onDelete && (
+              <Button variant="destructive" onClick={onDelete}>
+                Delete
+              </Button>
+            )}
           </div>
         </div>
       </div>

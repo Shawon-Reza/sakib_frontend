@@ -76,11 +76,11 @@ const Navbar1 = ({
     title: "Shadcnblocks.com",
   },
   menu = [
-    { title: "Home", url: "home" },
+    { title: "Home", url: "/home" },
 
     {
       title: "Invoices",
-      url: "invoices",
+      url: "/invoices",
     },
     {
       title: "Users",

@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { CalendarDays, ReceiptText, UserRound } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { AiOutlineDelete } from "react-icons/ai";
+import Swal from "sweetalert2";
 
 import { Button } from "@/components/ui/button";
 
@@ -22,9 +24,52 @@ const statusAccent: Record<InvoicePaymentStatus, string> = {
   Due: "from-rose-400/20 to-rose-100/5",
 };
 
+// ================ Handle delete invoice action ================ \\
+const handleDeleteInvoice = (invoiceId: string) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#141e32",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Invoice has been deleted.",
+        icon: "success"
+      });
+
+      console.log(`Delete invoice with ID: ${invoiceId}`);
+    }
+  });
+};
+
 export function InvoiceListCard({ invoice }: InvoiceListCardProps) {
+  const router = useRouter();
+
+  const handleViewInvoice = () => {
+    router.push(`/invoices/${invoice.id}`);
+  };
+
+  const stopCardNavigation = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
   return (
-    <article className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article
+      className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+      onClick={handleViewInvoice}
+      role="link"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleViewInvoice();
+        }
+      }}
+    >
       <div className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${statusAccent[invoice.status]}`} />
 
       <div className="border-b border-slate-200 bg-slate-50/80 p-4">
@@ -37,11 +82,24 @@ export function InvoiceListCard({ invoice }: InvoiceListCardProps) {
               {invoice.invoiceNo}
             </h2>
           </div>
-          <span
-            className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${statusStyles[invoice.status]}`}
-          >
-            {invoice.status}
-          </span>
+          <div className="flex items-center gap-3">
+            <span
+              className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${statusStyles[invoice.status]}`}
+            >
+              {invoice.status}
+            </span>
+            <Button
+              className="cursor-pointer"
+              variant="destructive"
+              size="sm"
+              onClick={(event) => {
+                stopCardNavigation(event);
+                handleDeleteInvoice(invoice.id);
+              }}
+            >
+              <AiOutlineDelete />
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -78,15 +136,6 @@ export function InvoiceListCard({ invoice }: InvoiceListCardProps) {
               {currency(invoice.dueAmount)}
             </p>
           </div>
-        </div>
-
-        <div className="flex items-center justify-end gap-2 pt-1">
-          <Button asChild variant="outline" size="sm">
-            <Link href={`/invoices/${invoice.id}`}>View</Link>
-          </Button>
-          <Button asChild size="sm">
-            <Link href={`/invoices/${invoice.id}/edit`}>Edit</Link>
-          </Button>
         </div>
       </div>
     </article>
