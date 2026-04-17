@@ -47,13 +47,13 @@ const BookADemo2Avatar = ({
           delay: delay ?? 0,
         }}
         className={cn(
-          "relative size-10 rounded-full border-2 p-[1px]",
+          "relative size-10 rounded-full border-2 p-px",
           avatarClassName,
         )}
       >
         <MousePointer2
           className={cn(
-            "absolute right-full bottom-full shrink-0 translate-x-2/5 translate-y-2/5 !delay-0",
+            "absolute right-full bottom-full shrink-0 translate-x-2/5 translate-y-2/5 delay-0!",
             cursorClassName,
           )}
           size={18}
@@ -127,54 +127,54 @@ const BookADemo2ContactForm = () => {
       <form className="grid grid-cols-2 gap-x-3 gap-y-6">
         <FormGroup className="col-span-2 sm:col-span-1">
           <Label>First Name</Label>
-          <Input type="text" placeholder="Bruce" />
+          <Input type="text" placeholder="Md. Shawon" />
         </FormGroup>
         <FormGroup className="col-span-2 sm:col-span-1">
           <Label>Last Name</Label>
-          <Input type="text" placeholder="Wayne" />
+          <Input type="text" placeholder="Reza" />
         </FormGroup>
         <FormGroup className="col-span-2">
-          <Label>Email</Label>
-          <Input type="email" placeholder="bruce@wayne.com" />
+          <Label>Phone Number</Label>
+          <Input type="tel" placeholder="+8801XXXXXXXXX" />
         </FormGroup>
         <FormGroup className="col-span-2 sm:col-span-1">
-          <Label>Company size</Label>
+          <Label>Product Category</Label>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a company size" />
+              <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1-10">1-10</SelectItem>
-              <SelectItem value="11-50">11-50</SelectItem>
-              <SelectItem value="51-100">51-100</SelectItem>
-              <SelectItem value="101-500">101-500</SelectItem>
-              <SelectItem value="501-1000">501-1000</SelectItem>
+              <SelectItem value="hardware-tools">Hardware Tools</SelectItem>
+              <SelectItem value="paints-polish">Paints and Polish</SelectItem>
+              <SelectItem value="plumbing">Plumbing Items</SelectItem>
+              <SelectItem value="electrical">Electrical Supplies</SelectItem>
+              <SelectItem value="construction">Construction Materials</SelectItem>
             </SelectContent>
           </Select>
         </FormGroup>
         <FormGroup className="col-span-2 sm:col-span-1">
-          <Label>Role</Label>
+          <Label>Customer Type</Label>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a role" />
+              <SelectValue placeholder="Select customer type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="CEO">CEO</SelectItem>
-              <SelectItem value="CTO">CTO</SelectItem>
-              <SelectItem value="CFO">CFO</SelectItem>
-              <SelectItem value="Other">Other</SelectItem>
+              <SelectItem value="retail">Retail Customer</SelectItem>
+              <SelectItem value="contractor">Contractor</SelectItem>
+              <SelectItem value="builder">Builder</SelectItem>
+              <SelectItem value="shop-owner">Shop Owner</SelectItem>
             </SelectContent>
           </Select>
         </FormGroup>
         <FormGroup className="col-span-2">
-          <Label>Message</Label>
+          <Label>Order Details</Label>
           <Textarea
-            placeholder="Share more about your use case, product, tech stack and what you want to accomplish"
+            placeholder="Tell us what items you need, quantity, preferred brand, and delivery location"
             className="min-h-32"
           />
         </FormGroup>
         <Button type="submit" className="col-span-2" size="lg">
-          Continue <ArrowRight />
+          Send Inquiry <ArrowRight />
         </Button>
       </form>
     </div>
@@ -324,11 +324,11 @@ interface BookADemo2Props {
 
 const BookADemo2 = ({
   header = {
-    heading: "Schedule a demo",
+    heading: "Request Hardware and Polish Supplies",
     description: {
-      text: "Book a demo to explore our development platform and discover how it can accelerate your team's productivity. If you have technical questions, feel free to reach out to our team.",
-      hyperlink: "reach out to our team",
-      url: "https://shadcnblocks.com",
+      text: "Send your product requirement to Modina Enterprise And Leaker Center. For urgent orders, call us directly and get quick support from our team.",
+      hyperlink: "call us directly",
+      url: "tel:+8801700000000",
     },
     avatars: [
       {
@@ -351,17 +351,17 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
       quote: {
         fullQuote:
-          "This platform has revolutionized our development workflow. The productivity gains have been incredible.",
+          "Great quality hardware items and genuine polish materials. Their pricing is fair and service is very professional.",
         highlightedWords: [
-          "revolutionized",
-          "productivity",
-          "gains",
-          "incredible",
+          "quality",
+          "genuine",
+          "fair",
+          "professional",
         ],
       },
       author: {
-        name: "Alex Chen",
-        designation: "Lead Developer",
+        name: "Rafiqul Islam",
+        designation: "Contractor",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/alexander-hipp-iEEBWgY_6lA-unsplash.jpg",
       },
@@ -371,12 +371,12 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
       quote: {
         fullQuote:
-          "The integration was seamless and our team was up and running in minutes. Game changer for our startup.",
-        highlightedWords: ["seamless", "minutes", "Game", "changer"],
+          "I always get the exact paint and polish products I need. Delivery is fast and the team is very responsive.",
+        highlightedWords: ["exact", "fast", "responsive"],
       },
       author: {
-        name: "Marcus Rodriguez",
-        designation: "CTO",
+        name: "Mehedi Hasan",
+        designation: "Retail Customer",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/christian-buehner-DItYlc26zVI-unsplash 1.jpg",
       },
@@ -386,12 +386,12 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
       quote: {
         fullQuote:
-          "We've reduced our development time by 40% since implementing this solution. Highly recommend it.",
-        highlightedWords: ["reduced", "40%", "Highly", "recommend"],
+          "They helped us source all construction essentials in one place. Very dependable supplier for ongoing projects.",
+        highlightedWords: ["construction", "one place", "dependable"],
       },
       author: {
-        name: "Emily Watson",
-        designation: "Engineering Manager",
+        name: "Tanvir Ahmed",
+        designation: "Site Supervisor",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/good-faces-xmSWVeGEnJw-unsplash.jpg",
       },
@@ -401,12 +401,12 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
       quote: {
         fullQuote:
-          "The developer experience is outstanding. Our team adoption was instant and the learning curve was minimal.",
-        highlightedWords: ["outstanding", "instant", "minimal"],
+          "Whenever I need tools urgently, this shop delivers on time. Product quality and support are always consistent.",
+        highlightedWords: ["urgently", "on time", "consistent"],
       },
       author: {
-        name: "David Kim",
-        designation: "Senior Developer",
+        name: "Jannat Ara",
+        designation: "Workshop Owner",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg",
       },
@@ -416,12 +416,12 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
       quote: {
         fullQuote:
-          "We've seen a 60% improvement in our deployment frequency since switching to this platform. Absolutely game-changing.",
-        highlightedWords: ["60%", "improvement", "game-changing"],
+          "Best place for polish and finishing supplies. They keep stock updated and guide us to the right products.",
+        highlightedWords: ["Best", "stock", "right products"],
       },
       author: {
-        name: "Lisa Thompson",
-        designation: "DevOps Engineer",
+        name: "Sabbir Hossain",
+        designation: "Interior Finishing Contractor",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/michael-dam-mEZ3PoFGs_k-unsplash.jpg",
       },
@@ -431,19 +431,19 @@ const BookADemo2 = ({
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
       quote: {
         fullQuote:
-          "The collaboration features have transformed how our remote team works together. It's like having the whole team in one room.",
-        highlightedWords: ["transformed", "collaboration", "together"],
+          "Reliable service, helpful staff, and genuine materials make this our first choice for hardware and polish needs.",
+        highlightedWords: ["Reliable", "helpful", "genuine"],
       },
       author: {
-        name: "James Wilson",
-        designation: "Product Manager",
+        name: "Nazmul Karim",
+        designation: "Builder",
         profilePicture:
           "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/nima-motaghian-nejad-_omdf_EgRUo-unsplash.jpg",
       },
     },
   ],
   footer = {
-    heading: "Trusted by development teams worldwide",
+    heading: "Trusted by homeowners, contractors, and local businesses",
     logos: [
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",

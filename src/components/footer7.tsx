@@ -26,6 +26,14 @@ interface Footer7Props {
     name: string;
     href: string;
   }>;
+  builderInfo?: {
+    name: string;
+    year: number;
+    contactLabel: string;
+    contactHref: string;
+    portfolioLabel: string;
+    portfolioHref: string;
+  };
 }
 
 const defaultSections = [
@@ -80,8 +88,16 @@ const Footer7 = ({
   sections = defaultSections,
   description = "A collection of components for your startup business or side project.",
   socialLinks = defaultSocialLinks,
-  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",
+  copyright = "All rights reserved.",
   legalLinks = defaultLegalLinks,
+  builderInfo = {
+    name: "Shawon Reza",
+    year: 2026,
+    contactLabel: "+8801XXXXXXXXX",
+    contactHref: "tel:+8801000000000",
+    portfolioLabel: "Portfolio",
+    portfolioHref: "https://portfolio-shawon-reza.vercel.app",
+  },
   className,
 }: Footer7Props) => {
   return (
@@ -132,15 +148,22 @@ const Footer7 = ({
             ))}
           </div>
         </div>
-        <div className="mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium text-muted-foreground md:flex-row md:items-center md:text-left">
-          <p className="order-2 lg:order-1">{copyright}</p>
-          <ul className="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
-            {legalLinks.map((link, idx) => (
-              <li key={idx} className="hover:text-primary">
-                <a href={link.href}> {link.name}</a>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-8 border-t py-6 text-xs font-medium text-muted-foreground">
+          <p className="text-center md:whitespace-nowrap">
+            © {builderInfo.year} {copyright} | Website built by {builderInfo.name} | Contact: {" "}
+            <a className="hover:text-primary" href={builderInfo.contactHref}>
+              {builderInfo.contactLabel}
+            </a>{" "}
+            | {builderInfo.portfolioLabel}: {" "}
+            <a
+              className="hover:text-primary"
+              href={builderInfo.portfolioHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {builderInfo.portfolioHref}
+            </a>
+          </p>
         </div>
       </div>
     </section>
