@@ -102,7 +102,6 @@ const Navbar1 = ({
 
   const { user, setUser } = useAuthUser();
 
-  console.log(user)
   //  ======================== Sign Out Mutation ======================== \\
   const signOut = useMutation({
     mutationFn: async () => {
@@ -128,32 +127,32 @@ const Navbar1 = ({
   };
 
   return (
-    <section className={cn("py-4 px-10", className)}>
+    <section className={cn("w-full py-4", className)}>
       <div className="container mx-auto">
         {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex w-full mx-auto">
-          <div className="flex items-center gap-6">
+        <nav className="mx-auto hidden w-full items-center justify-between gap-4 lg:flex">
+          <div className="flex min-w-0 flex-1 items-center gap-4">
             {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
+            <a href={logo.url} className="flex shrink-0 items-center gap-2">
               <img
                 src={logo.src}
                 className="max-h-8 dark:invert"
                 alt={logo.alt}
               />
-              <span className="text-lg font-semibold tracking-tighter">
+              <span className="hidden text-lg font-semibold tracking-tighter xl:inline">
                 {logo.title}
               </span>
             </a>
-            <div className="flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
+            <div className="min-w-0">
+              <NavigationMenu className="max-w-full justify-start">
+                <NavigationMenuList className="justify-start">
                   {menu.map((item) => renderMenuItem(item, pathname))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
           {/* Auth Buttons */}
-          <div className="flex gap-2">
+          <div className="flex shrink-0 gap-2">
             <LanguageSwitcher />
             {
               user ?

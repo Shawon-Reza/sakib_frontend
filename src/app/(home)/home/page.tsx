@@ -9,9 +9,9 @@ const HomePage = () => {
 
   
   return (
-    <div className="px-2 pt-24">
+    <div className="overflow-x-clip px-2 pt-24">
 
-      <nav className="fixed top-0 left-0 right-0 z-50 scale-110 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <nav className="fixed inset-x-0 top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
         <Navbar1 />
       </nav>
       <nav className="scale-100 ">
@@ -27,7 +27,7 @@ const HomePage = () => {
         <LocationMap />
       </footer>
       {/* ============= Footer ============== */}
-      <footer className="scale-110 ">
+      <footer>
         <Footer7 />
       </footer>
 
